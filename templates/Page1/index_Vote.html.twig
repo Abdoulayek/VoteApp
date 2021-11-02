@@ -15,47 +15,75 @@
         
             <h1>CATMASH</h1>
             <p >Cliquez pour voter pour le chat le plus mignon</p>
-            <a class = "acces_resultats" href="{{ path('Page2') }}"> Cliquez pour voir les chats les plus mignons !</a>
+            <a class = "acces_resultats" href="{{ path('Page2', {'id': images[0].id}) }}"> Cliquez pour voir les chats les plus mignons !</a>
         </br>
 
-        
-        {% for image in images %}
-        <div id="cadre_photos">
-            <td>
-                <td> <a href="{{ path('Page3', {'id':image.id}) }}"> <img src={{image.url}} id = {{image.id}} onClick="reply_click(this.id)"> </img></td> </a>
-            </tr>
-        </div>
-        {% endfor %}
 
-        <div id="cadre_photos">
+        <div class="toast" data-delay="3000" id="myToast" style="position: absolute; top: 0;  right: 0;background-color:rgb(92, 255, 28)">
+                <div class="toast-header">
+                    <strong class="mr-auto"><i class="fa fa-grav"></i> Vote effectué !</strong>
+                    <small>il y'a quelques secondes</small>
+                    <button type="button" class="ml-2 mb-1 close" data-dismiss="toast">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="toast-body">
+                    <div>Retrouvez vos votes : <a href="{{ path('Page2', {'id': images[0].id}) }}">Cliquez ici !</a></div>
+                </div>
+        </div>
+        <div class="cadre_photos">
+            {% for image in images %}
+            
+                <td>
+                    <td > <a class = "panier" href="{{ path('Page3', {'id': image.imageid, 'ids':image.id, 'num':images[0].id}) }}"> <img src={{image.url}} id = {{image.id}} onClick="reply_click(this.id)"> </img></td> </a>
+                </tr>
+            
+            {% endfor %}
+        </div>
+
+        
 
         {% block javascripts %} 
-            <script>
+        {% include 'js/js.html' %}
+            <script >
             
-                let dict = new Object();
-                function reply_click(clicked_id)
-                {
-                    id = new String(clicked_id)
-                    console.log(id);
+                
+                $(function(){
 
-                    var value = dict[id];
+                        function AjoutPanier( event ) 
+                        {
+                            event.preventDefault();
 
-                    if (value == undefined ){
-                        dict[id] = 1;
-                    }
-                    else{
-                        dict[id] = value + 1
-                    }
+                             const url = this.href;
+                             console.log(url);
 
-                    console.log(dict[id]);
-                };
-           
+                             $.ajax({
+                                url : url,
+                                type : 'GET',
+                    
+                                success : function(code_html, statut){ // code_html contient le HTML renvoyé
+                                    console.log("bon");
+                            
+                                    var screenTop = $(document).scrollTop();   
+
+                                    $( ".toast" ).css('top', screenTop);
+                                    $("#myToast").toast('show');
+
+                                    
+                                }
+                            });
+
+                        }
+
+                        $(".panier").on('click',AjoutPanier);
+                    });
+
            
             
             </script>
             
         {% endblock %}
-        </div>
+        
         {% endblock %}
      </body>
 

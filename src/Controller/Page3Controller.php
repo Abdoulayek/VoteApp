@@ -13,9 +13,9 @@ class Page3Controller extends AbstractController
 {
     
    /**
-    * @Route("/Page3Controller/number/{id}", name="Page3")
+    * @Route("/Page3Controller/number/{id}/{ids}/{num}", name="Page3")
     */
-    public function number($id)
+    public function number($id, $ids, $num)
     {
         $entityManager = $this->getDoctrine()->getManager();
         $repository = $this->getDoctrine()->getRepository(ImageData::class);
@@ -29,7 +29,20 @@ class Page3Controller extends AbstractController
         $entityManager->persist($image);
         $entityManager->flush();
 
-        return $this->redirect($_SERVER['HTTP_REFERER']);
+        //dump($id);die;
+        $image_1 = $repository->findOneBy(['id' => $num]);
+        
+
+        $image_2 = $repository->findOneBy(['id' => $num+1]);
+
+        $images_a_afficher = [$image_1, $image_2];
+        
+
+        return $this->render('Page1/index_Vote.html.twig', [
+            'ids' => $ids,
+            'etat' => 500,
+            'images' => $images_a_afficher
+        ]);
         
     }
 

@@ -13,7 +13,7 @@ class HomeController extends AbstractController
    /**
     * @Route("/", name="Page1")
     */
-    public function number()
+    public function number($etat = 200, $ids = 0)
     {
  
         $ImagesJson = file_get_contents('data.json');
@@ -41,10 +41,32 @@ class HomeController extends AbstractController
             $entityManager->flush();
 
         }
+
+
+        
+        if($etat == 500)
+        {
+            $number_1 = $ids;
+        } 
+        else
+        {
+            $max = count($images);
+            $number_1 = random_int(0, $max -2);
+        }
         
 
+        
+        
+        $image_1 = $repository->findOneBy(['id' => $number_1]);
+        
+
+        $image_2 = $repository->findOneBy(['id' => $number_1+1]);
+
+        $images_a_afficher = [$image_1, $image_2];
+
         return $this->render('Page1/index_Vote.html.twig', [
-            'images' => $images
+            'images' => $images_a_afficher,
+            'ids' => $number_1
         ]);
     }
 }
