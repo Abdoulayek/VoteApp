@@ -1,0 +1,62 @@
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}Page de Vote{% endblock %}</title>
+        {% block stylesheets %}
+            {% include 'css/css.html' %}
+        {% endblock %}
+    </head>
+
+
+    <body >
+       {% block body %} 
+        
+            <h1>CATMASH</h1>
+            <p >Cliquez pour voter pour le chat le plus mignon</p>
+            <a class = "acces_resultats" href="{{ path('Page2') }}"> Cliquez pour voir les chats les plus mignons !</a>
+        </br>
+
+        
+        {% for image in images %}
+        <div id="cadre_photos">
+            <td>
+                <td> <a href="{{ path('Page3', {'id':image.id}) }}"> <img src={{image.url}} id = {{image.id}} onClick="reply_click(this.id)"> </img></td> </a>
+            </tr>
+        </div>
+        {% endfor %}
+
+        <div id="cadre_photos">
+
+        {% block javascripts %} 
+            <script>
+            
+                let dict = new Object();
+                function reply_click(clicked_id)
+                {
+                    id = new String(clicked_id)
+                    console.log(id);
+
+                    var value = dict[id];
+
+                    if (value == undefined ){
+                        dict[id] = 1;
+                    }
+                    else{
+                        dict[id] = value + 1
+                    }
+
+                    console.log(dict[id]);
+                };
+           
+           
+            
+            </script>
+            
+        {% endblock %}
+        </div>
+        {% endblock %}
+     </body>
+
+</html>

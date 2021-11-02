@@ -1,0 +1,42 @@
+
+
+#header{
+
+    background-color: green;
+
+}
+
+h1, p{
+    width: 16rem;
+    margin-left: 45%;
+    display: inline-block;
+}
+.acces_resultats{
+    width: 16rem;
+    margin-left: 45%;
+    display: inline-block;
+}
+
+img{
+    width:200px;
+    height:100px;
+    margin: 20px;
+    list-style: none;
+    
+}
+
+td{
+    align-items: center; 
+   
+}
+
+body{
+    background-color:paleturquoise;
+}
+
+#cadre_photos{
+    display: inline;
+    align-items: center;
+    margin-left: 40px;
+    padding-top: 20px;
+}

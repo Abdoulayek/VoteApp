@@ -1,0 +1,33 @@
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}Page de résultats{% endblock %}</title>
+        {% block stylesheets %}
+            {% include 'css/css.html' %}
+        {% endblock %}
+    </head>
+
+    
+
+    <body>
+
+        <h1>Vos Chats les plus mignons</h1>
+        <a class = "acces_resultats" href="{{ path('Page1') }}" > Cliquez pour retourner aux votes !</a>
+        
+        </br>
+        {% for image in images %}
+        <div id="cadre_photos">
+            <td>
+                <td>  <img src={{image.url}} id = {{image.id}}> </img> </td> 
+                <td>   {{image.NbClick}} </td>
+            </tr>
+        </div>
+        {% endfor %}
+            
+        </div>
+
+     </body>
+
+</html>
