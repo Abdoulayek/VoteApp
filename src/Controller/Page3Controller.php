@@ -13,7 +13,7 @@ class Page3Controller extends AbstractController
 {
     
    /**
-    * @Route("/Page3Controller/number/{id}/{ids}/{num}", name="Page3")
+    * @Route("/Page3Controller/{id}/{ids}/{num}", name="Page3")
     */
     public function number($id, $ids, $num)
     {
